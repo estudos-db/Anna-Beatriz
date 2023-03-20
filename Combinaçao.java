@@ -9,7 +9,8 @@ public class Combinaçao {
             for (int f = i + 1; f < numeros.length; f++) {
                 /*necessario assegurar que o loop f percorre a lista a partir do elemento seguinte ao atual
                 do loop externo ou ele fica preso em uma comparaçao infinita entre os mesmos 2 elementos,
-                ja que a variavel i nunca iria atualizar.*/
+                ja que a variavel i nunca iria atualizar.
+                */
 
                 if (numeros[i] + numeros[f] == k) {
                     return true;
