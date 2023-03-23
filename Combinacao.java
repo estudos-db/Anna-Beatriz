@@ -1,5 +1,5 @@
 
-public class Combinaçao {
+public class Combinacao {
     public static boolean checarASoma(int[] numeros, int k) {
         for (int i = 0; i < numeros.length; i++) {
             /*incrementar garante que cada numero da lista seja utilizado pelo
