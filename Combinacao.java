@@ -2,7 +2,7 @@
 public class Combinacao {
     public static boolean checarASoma(int[] numeros, int k) {
         for (int i = 0; i < numeros.length; i++) {
-            /*incrementar garante que cada numero da lista seja utilizado pelo
+            /*incrementar  garante que cada numero da lista seja utilizado pelo
             menos uma vez como um dos valores da soma. assim a variavel i tem o valor 1 e o segundo
             elemento é acessado como a lista de numeros[1], sucessivamente.
              */
