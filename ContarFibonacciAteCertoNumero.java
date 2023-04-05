@@ -2,11 +2,21 @@ package testjava;
 import java.util.Scanner;
 
 public class ContarFibonacciAteCertoNumero {
+
+ public static testjava.GeradorFibonacci GeradorFibonacci;
+ 
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.print("Insira um número inteiro que não seja negativo: ");
         int numeroDoUsuario = input.nextInt();
-        System.out.println(sequenciaFibonacci(numeroDoUsuario));
+        
+        GeradorFibonacci gerador = new GeradorFibonacci();
+        System.out.println(gerador.sequenciaFibonacci(numeroDoUsuario));
+    }
+}
+
+
+class GeradorFibonacci {
 
         public static String sequenciaFibonacci(int numeroDoUsuario) {
 
