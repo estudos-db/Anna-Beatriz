@@ -28,7 +28,7 @@ class GeradorFibonacci {
         String resultado = "";        
         while (primeiroTermo <= numeroDoUsuario) {
             
-            resultado = resultado + primeiroTermo;
+            resultado = resultado + primeiroTermo + ",";
             termoPosSoma = primeiroTermo + segundoTermo;
             primeiroTermo = segundoTermo;
             segundoTermo = termoPosSoma;
