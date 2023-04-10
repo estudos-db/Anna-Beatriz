@@ -1,9 +1,10 @@
-package testjava;
+package exercicio9;
+
 import java.util.Scanner;
 
 public class ContarFibonacciAteCertoNumero {
 
- public static testjava.GeradorFibonacci GeradorFibonacci;
+ public static GeradorFibonacci GeradorFibonacci;
  
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
