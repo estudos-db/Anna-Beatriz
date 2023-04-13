@@ -1,4 +1,4 @@
-package testjava;
+package exercicio7;
 
 import java.util.ArrayList;
 import java.util.List;
