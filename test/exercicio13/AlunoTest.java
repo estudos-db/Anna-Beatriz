@@ -1,7 +1,8 @@
-package src.exercicio13;
+package test.exercicio13;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import src.exercicio13.Aluno;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,7 +24,6 @@ public class AlunoTest {
 
         Aluno aluno2 = new Aluno(5.0, 4.0, 5.0, 5.0);
         assertEquals("Verificação Suplementar.", aluno2.informarStatusDoAluno());
-
 
         Aluno aluno3 = new Aluno(3.0, 0.0, 2.0, 3.0);
         assertEquals("Reprovado.", aluno3.informarStatusDoAluno());
