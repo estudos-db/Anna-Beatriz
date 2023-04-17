@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="exercicio15.CalculadoraOperacoesTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-17T04:48:53" hostname="PCDEBIA" time="0.047">
+  <properties/>
+  <testcase name="Deve calcular a subtraÃ§Ã£o, simulando o nÃºmero 4 subtraÃ­do por 2." classname="exercicio15.CalculadoraOperacoesTest" time="0.034"/>
+  <testcase name="Deve calcular a soma, simulando o nÃºmero 4 somado Ã  2." classname="exercicio15.CalculadoraOperacoesTest" time="0.001"/>
+  <testcase name="Deve calcular a multiplicaÃ§Ã£o, simulando o nÃºmero 4 multiplicado por 2." classname="exercicio15.CalculadoraOperacoesTest" time="0.002"/>
+  <testcase name="Deve calcular a divisÃ£o, simulando o nÃºmero 4 dividido por 2." classname="exercicio15.CalculadoraOperacoesTest" time="0.002"/>
+  <testcase name="Deve calcular a potenciaÃ§Ã£o, simulando a base 4 e expoente 2." classname="exercicio15.CalculadoraOperacoesTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
