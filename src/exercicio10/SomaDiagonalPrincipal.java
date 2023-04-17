@@ -1,4 +1,4 @@
-package testjava;
+package exercicio10;
 
 public class SomaDiagonalPrincipal {
     public static void main(String[] args) {

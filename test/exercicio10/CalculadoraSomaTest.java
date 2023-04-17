@@ -1,4 +1,4 @@
-package testjava;
+package exercicio10;
 
 
 import org.junit.jupiter.api.Test;
