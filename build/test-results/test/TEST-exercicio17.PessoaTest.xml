@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="exercicio17.PessoaTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-04-17T20:12:11" hostname="PCDEBIA" time="0.069">
+  <properties/>
+  <testcase name="Deve retornar a idade da pessoa." classname="exercicio17.PessoaTest" time="0.036"/>
+  <testcase name="Deve retornar, em string , a representaÃ§Ã£o da pessoa correta." classname="exercicio17.PessoaTest" time="0.017"/>
+  <testcase name="Deve retornar o nome da pessoa." classname="exercicio17.PessoaTest" time="0.003"/>
+  <testcase name="Deve retornar a mÃ£e correta da pessoa." classname="exercicio17.PessoaTest" time="0.002"/>
+  <testcase name="Deve retornar o pai correto da pessoa." classname="exercicio17.PessoaTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
