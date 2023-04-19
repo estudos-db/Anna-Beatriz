@@ -1,3 +1,4 @@
+package src;
 
 public class Combinacao {
     public static boolean checarASoma(int[] numeros, int k) {
