@@ -1,9 +1,8 @@
-package test.exercicio12;
+package exercicio12;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import src.exercicio12.VetorUtils;
 
 public class VetorUtilsTest {
 

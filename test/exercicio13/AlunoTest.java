@@ -1,8 +1,7 @@
-package test.exercicio13;
+package exercicio13;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import src.exercicio13.Aluno;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

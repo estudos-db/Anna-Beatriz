@@ -2,8 +2,8 @@ package exercicio11;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Test;
-import testjava.BubbleSort;
+import org.junit.jupiter.api.Test;
+
 
 public class VetorUtilsTest {
 

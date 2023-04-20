@@ -1,4 +1,4 @@
-package src.exercicio13;
+package exercicio13;
 public class Aluno {
     private double nota1;
     private double nota2;
