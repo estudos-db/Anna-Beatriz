@@ -1,8 +1,7 @@
-package test.exercicio9;
+package exercicio9;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import src.exercicio9.GeradorFibonacci;
 
 public class GeradorFibonacciTest {
 //testa sequencias de entrada

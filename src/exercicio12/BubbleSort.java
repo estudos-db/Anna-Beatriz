@@ -1,10 +1,10 @@
-package src.exercicio12;
+package exercicio12;
 import java.util.Arrays;
 
 public class BubbleSort {
     public static void main(String[] args) {
-        int[] vetor1 = VetorUtils.criarVetor(50);
-        int[] vetor2 = VetorUtils.criarVetor(50);
+        int[] vetor1 = exercicio12.VetorUtils.criarVetor(50);
+        int[] vetor2 = exercicio12.VetorUtils.criarVetor(50);
         System.out.println("Vetor 1 antes da ordenação: " + Arrays.toString(vetor1));
         System.out.println("Vetor 2 antes da ordenação: " + Arrays.toString(vetor2));
 
@@ -14,7 +14,7 @@ public class BubbleSort {
         System.out.println("Vetor 1 após a ordenação: " + Arrays.toString(vetor1));
         System.out.println("Vetor 2 após a ordenação: " + Arrays.toString(vetor2));
 
-        int[] novoVetor = VetorUtils.combinarVetoresOrdenados(vetor1, vetor2);
+        int[] novoVetor = exercicio12.VetorUtils.combinarVetoresOrdenados(vetor1, vetor2);
         bubbleSort(novoVetor);
 
         System.out.println("Novo vetor ordenado: " + Arrays.toString(novoVetor));

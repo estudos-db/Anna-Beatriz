@@ -1,4 +1,4 @@
-package src.exercicio12;
+package exercicio12;
 
 import java.util.*;
 

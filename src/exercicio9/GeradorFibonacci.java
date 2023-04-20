@@ -1,4 +1,4 @@
-package src.exercicio9;
+package exercicio9;
 
 public class GeradorFibonacci {
     public static String sequenciaFibonacci(int numeroDoUsuario) {

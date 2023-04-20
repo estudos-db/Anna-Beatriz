@@ -1,6 +1,5 @@
-package src.exercicio9;
+package exercicio9;
 
-import src.exercicio9.GeradorFibonacci;
 import java.util.Scanner;
 
 public class ContarFibonacciAteCertoNumero {
