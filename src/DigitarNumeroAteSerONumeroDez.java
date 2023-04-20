@@ -1,3 +1,5 @@
+package src;
+
 import java.util.Scanner;
 public class DigitarNumeroAteSerONumeroDez {
     public static void main(String[] args) {
