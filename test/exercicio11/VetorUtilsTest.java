@@ -1,4 +1,4 @@
-package testjava;
+package exercicio11;
 
 import static org.junit.jupiter.api.Assertions.*;
 
