@@ -7,3 +7,8 @@
 out/
 *.iml
 
+/gradle/
+/.gradle/
+
+/bin/
+/build/
