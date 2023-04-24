@@ -5,39 +5,45 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class EmprestimoTest {
+    Livro livro = new Livro("Harry Potter e a Pedra Filosofal", "J.K. Rowling", "Rocco",1999);
+    Pessoa pessoa = new Pessoa("Maria Souza");
+    Emprestimo emprestimo = new Emprestimo(livro, pessoa);
+    LocalDate novaData = LocalDate.now().plusDays(10);
     @Test
-    void testSetDataParaDevolucao() {
-        Emprestimo emprestimo = new Emprestimo(new Livro("Livro de teste", "Autor de teste", "Editora de teste", 2022), new Pessoa("João"));
-        LocalDate data = LocalDate.now().plusDays(7);
-        emprestimo.setDataParaDevolucao(data);
-        Assertions.assertEquals(data, emprestimo.getLivro().getDataDevolucao());
+    public void testSetDataParaDevolucao() {
+        emprestimo.setDataParaDevolucao(novaData);
+        assertEquals(novaData, emprestimo.getDataParaDevolucao());
     }
     @Test
     void testDevolverLivroSemEntregaAtrasada() {
-        Emprestimo emprestimo = new Emprestimo(new Livro("Livro de teste", "Autor de teste", "Editora de teste", 2022), new Pessoa("João"));
-        emprestimo.realizarEmprestimo();
+        emprestimo.realizarEmprestimo(new Pessoa("Maria"));
         emprestimo.setDataParaDevolucao(LocalDate.now().plusDays(7));
-        emprestimo.devolverLivro();
+        emprestimo.livroDevolvido();
         Livro livro = emprestimo.getLivro();
-        Assertions.assertFalse(livro.isEmprestado());
-        Assertions.assertFalse(livro.isAtrasado());
+        Assertions.assertFalse(emprestimo.isEmprestado());
+        Assertions.assertFalse(emprestimo.isAtrasado());
     }
 
     @Test
-    void testRealizarEmprestimo() {
-        Emprestimo emprestimo = new Emprestimo(new Livro("Livro tal", "Autor tal", "Editora tal", 2023), new Pessoa("João"));
-        emprestimo.realizarEmprestimo();
-        Assertions.assertTrue(emprestimo.getLivro().isEmprestado());
+    public void testRealizarEmprestimo() {
+        emprestimo.realizarEmprestimo(pessoa);
+        assertTrue(emprestimo.isEmprestado());
+        assertEquals(pessoa, emprestimo.getEmprestadoPara());
+        assertEquals(LocalDate.now().plusDays(7), emprestimo.getDataParaDevolucao());
     }
 
     @Test
     void testEmprestimoAtivo() {
-        Emprestimo emprestimo = new Emprestimo(new Livro("Livro tal", "Autor tal", "Editora tal", 2023), new Pessoa("João"));
-        emprestimo.realizarEmprestimo();
+        emprestimo.realizarEmprestimo(new Pessoa("João"));
         emprestimo.setDataParaDevolucao(LocalDate.now().plusDays(7));
-        Assertions.assertTrue(emprestimo.emprestimoAtivo());
+        assertTrue(emprestimo.emprestimoAtivo());
         emprestimo.setDataParaDevolucao(LocalDate.now().minusDays(1));
         Assertions.assertFalse(emprestimo.emprestimoAtivo());
     }
+
+
 }

@@ -11,13 +11,13 @@ public class EmprestimoMain {
                 Emprestimo emprestimo1 = new Emprestimo(livro1, pessoa1);
                 Emprestimo emprestimo2 = new Emprestimo(livro2, pessoa2);
 
-                emprestimo1.realizarEmprestimo();
-                emprestimo2.realizarEmprestimo();
+                emprestimo1.realizarEmprestimo(pessoa1);
+                emprestimo2.realizarEmprestimo(pessoa2);
 
                 emprestimo1.setDataParaDevolucao(LocalDate.now().minusDays(2));
                 emprestimo2.setDataParaDevolucao(LocalDate.now().minusDays(3));
 
-                emprestimo1.devolverLivro();
-                emprestimo2.devolverLivro();
+                emprestimo1.livroDevolvido();
+                emprestimo2.livroDevolvido();
         }
 }
