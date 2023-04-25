@@ -6,13 +6,17 @@ public class Pessoa {
     private Pessoa pai;
     private Pessoa mae;
 
+    public Pessoa(String nome, int idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
     public Pessoa(String nome, int idade, Pessoa pai, Pessoa mae) {
         this.nome = nome;
         this.idade = idade;
         this.pai = pai;
         this.mae = mae;
     }
-
     public String getNome() {
         return nome;
     }
@@ -33,8 +37,6 @@ public class Pessoa {
         return "Pessoa{" +
                 "nome='" + nome + '\'' +
                 ", idade=" + idade +
-                ", pai=" + pai +
-                ", mae=" + mae +
                 '}';
     }
 }
