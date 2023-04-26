@@ -2,9 +2,9 @@ package exercicio16;
 
 public class Livro {
     private String titulo;
-    private final String autor;
-    private final String editora;
-    private final int anoLancamento;
+    private String autor;
+    private String editora;
+    private int anoLancamento;
 
     public Livro(String titulo, String autor, String editora, int anoLancamento) {
         this.titulo = titulo;
@@ -25,4 +25,9 @@ public class Livro {
     public int getAnoLancamento() {
         return anoLancamento;
     }
+    public void setAutor(String autor) { this.autor = autor; }
+    public void setEditora(String editora) { this.editora = editora; }
+    public void setTitulo(String titulo) { this.titulo = titulo; }
+    public void setAnoLancamento(int anoLancamento) { this.anoLancamento = anoLancamento; }
 }
+

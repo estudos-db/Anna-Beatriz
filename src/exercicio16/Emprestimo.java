@@ -3,8 +3,8 @@ package exercicio16;
 import java.time.LocalDate;
 
 public class Emprestimo {
-    private final Livro livro;
-    private final LocalDate dataEmprestimo;
+    private Livro livro;
+    private LocalDate dataEmprestimo;
     private LocalDate dataParaDevolucao;
     private Pessoa emprestadoPara;
     private boolean emprestado;
@@ -13,13 +13,16 @@ public class Emprestimo {
         this.livro = livro;
         this.dataEmprestimo = LocalDate.now();
         this.dataParaDevolucao = dataEmprestimo.plusDays(7); // prazo de devolução de 7 dias
-        this.emprestadoPara = null;
+        this.emprestadoPara = pessoa;
         this.emprestado = false;
     }
 
     public void setDataParaDevolucao(LocalDate dataParaDevolucao) {
         this.dataParaDevolucao = dataParaDevolucao;
     }
+    public void setDataEmprestimo(LocalDate dataEmprestimo) { this.dataEmprestimo = dataEmprestimo; }
+    public void setLivro(Livro livro) { this.livro = livro; }
+    public void setEmprestadoPara(Pessoa emprestadoPara) { this.emprestadoPara = emprestadoPara; }
     public boolean isEmprestado() {
         return emprestado;
     }
