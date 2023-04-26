@@ -1,39 +1,47 @@
 package exercicio20;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
 public class Menu {
-    private static Scanner scanner = new Scanner(System.in);
-    private static Pedido pedido = new Pedido();
-    public static void mostrarEstoque() {
-        System.out.println("\n==== ESTOQUE ====");
-        Estoque.imprimeCatalogoDoEstoque();
-    }
+    private final FecharPedidoComTroco pedido = new FecharPedidoComTroco();
 
-    public static void adicionarItemAoCarrinho() {
-        System.out.println("\n==== ADICIONAR ITEM AO CARRINHO ====");
-        System.out.print("Digite o nome do produto: ");
-        String nomeProduto = scanner.next();
-        Produto produto = Estoque.encontraProdutoPorNome(nomeProduto);
-        if (produto == null) {
-            System.out.println("Produto não encontrado no estoque.");
-            return;
+    private static final int OPCAO_EXIBIR_ESTOQUE = 1;
+    private static final int OPCAO_REALIZAR_PEDIDO = 2;
+    private static final int OPCAO_CADASTRAR_PRODUTO = 3;
+    private static final int OPCAO_ENCERRAR_PROGRAMA = 4;
+
+    public void iniciaMenu() {
+        try (Scanner scanner = new Scanner(System.in)) {
+            boolean decisao = true;
+            while (decisao) {
+                int resposta;
+                mostrarMenu();
+                try {
+                    resposta = scanner.nextInt();
+                } catch (InputMismatchException excecao) {
+                    scanner.nextLine();
+                    resposta = 0;
+                }
+                switch (resposta) {
+                    case OPCAO_EXIBIR_ESTOQUE -> Estoque.mostrarEstoque();
+                    case OPCAO_REALIZAR_PEDIDO -> pedido.realizarPedido();
+                    case OPCAO_CADASTRAR_PRODUTO -> Estoque.cadastrarProduto();
+                    case OPCAO_ENCERRAR_PROGRAMA -> {
+                        System.out.println("encerrando o programa...");
+                        decisao = false;
+                    }
+                    case 0 -> System.out.println("Opção inválida, digite novamente.");
+                }
+            }
         }
-        System.out.print("Digite a quantidade desejada: ");
-        int quantidade = scanner.nextInt();
-        pedido.adicionaItemNaLista(produto, quantidade);
-        System.out.println("Item adicionado ao carrinho.");
     }
 
-    public static void imprimirPedido() {
-        System.out.println("\n==== PEDIDO ====");
-        pedido.imprimePedido();
-        pedido.imprimeValorTotal();
-    }
-
-    public static void limparCarrinho() {
-        System.out.println("\nCarrinho limpo.");
-        pedido.limparCarrinho();
+    private void mostrarMenu() {
+        System.out.println("Qual das ações abaixo você gostaria de realizar?");
+        System.out.println(OPCAO_EXIBIR_ESTOQUE + ": para exibir estoque");
+        System.out.println(OPCAO_REALIZAR_PEDIDO + ": para realizar um pedido");
+        System.out.println(OPCAO_CADASTRAR_PRODUTO + ": para cadastrar um produto");
+        System.out.println(OPCAO_ENCERRAR_PROGRAMA + ": para encerrar o programa");
     }
 }
-
-

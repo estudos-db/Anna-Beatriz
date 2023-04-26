@@ -1,77 +1,67 @@
 package exercicio20;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Pedido {
-    private List<Item> listaDeItens;
-    private BigDecimal valorTotal;
+    private final List<Item> listaDeItens = new ArrayList<>();
+    private BigDecimal valorTotal = BigDecimal.ZERO;
+    private final Scanner scanner = new Scanner(System.in);
 
-    public Pedido() {
-        this.listaDeItens = new ArrayList<>();
-        this.valorTotal = BigDecimal.ZERO;
+    public void adicionarItem() {
+        Produto produto = encontrarProduto();
+        int quantidadeRequerida = receberQuantidadeProdutoDoTeclado();
+        Estoque.temEstoqueOuNao(produto.getNome(), quantidadeRequerida);
+
+        Item item = new Item(produto, quantidadeRequerida);
+        Estoque.darBaixaEmEstoque(produto.getNome(), quantidadeRequerida);
+
+        adicionarItemALista(item);
+        calcularValorTotal();
+    }
+
+    public Produto encontrarProduto() {
+        Produto produto = null;
+        while (produto == null) {
+            System.out.println("Digite o nome do produto que você quer:");
+            String nomeProduto = scanner.nextLine();
+            if (Estoque.encontraProdutoPeloNome(nomeProduto) == null) {
+                System.out.println("Produto não encontrado no estoque. Por favor, digite um produto válido.");
+            } else {
+                produto = Estoque.encontraProdutoPeloNome(nomeProduto);
+            }
+        }
+        return produto;
+    }
+    public int receberQuantidadeProdutoDoTeclado() {
+        System.out.println("Digite a quantidade que você quer deste produto:");
+        return scanner.nextInt();
+    }
+
+    public void adicionarItemALista(Item item) {
+        listaDeItens.add(item);
+    }
+
+    public void calcularValorTotal() {
+        valorTotal = listaDeItens.stream()
+                .map(Item::getValorDoItem)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void imprimirPedido() {
+        System.out.println("Compra finalizada! Status atual do produto:");
+        System.out.println(this);
+        System.out.printf("O valor total é de R$ %.2f%n", valorTotal);
     }
 
     public BigDecimal getValorTotal() {
         return valorTotal;
     }
 
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
-    public void adicionaItemNaLista(Produto produto, int quantidade) {
-        Item item = new Item(produto, BigDecimal.valueOf(produto.getPreco()), quantidade);
-        listaDeItens.add(item);
-    }
-
-
-    public void calculaValorTotal() {
-        BigDecimal total = BigDecimal.ZERO;
-        for (Item item : listaDeItens) {
-            total = total.add(item.getValorDoItem());
-        }
-        this.valorTotal = total;
-    }
-
-    public void imprimePedido() {
-        System.out.println("====> PEDIDO <====");
-        for (Item item : listaDeItens) {
-            System.out.println(item.getQuantidade() + "x " + item.getProduto().getNomeProduto() + " - " + item.getValorDoItem());
-        }
-    }
-
-    public void imprimeValorTotal() {
-        System.out.println("VALOR TOTAL: " + valorTotal);
-    }
-
-    public void adicionaItem() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Nome do produto: ");
-        String nome = scanner.nextLine();
-        System.out.print("Quantidade desejada: ");
-        int quantidade = scanner.nextInt();
-        Produto produto = Estoque.encontraProdutoPorNome(nome);
-        if (produto == null) {
-            System.out.println("Produto não encontrado.");
-            return;
-        }
-        Estoque.temEstoqueOuNao(produto, quantidade);
-        adicionaItemNaLista(produto, quantidade);
-        Estoque.darBaixaEmEstoquePorNome(nome, quantidade);
-        System.out.println("Item adicionado com sucesso.");
-    }
-
-    public void recebeQuantidadeDoTeclado(int quantidade) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Quantidade desejada: ");
-        quantidade = scanner.nextInt();
-    }
-    public void limparCarrinho() {
-        listaDeItens.clear();
-        valorTotal = BigDecimal.ZERO;
-        System.out.println("Carrinho limpo com sucesso.");
+    @Override
+    public String toString() {
+        return "Pedido{" +
+                "itens no pedido=" + listaDeItens +
+                '}';
     }
 }

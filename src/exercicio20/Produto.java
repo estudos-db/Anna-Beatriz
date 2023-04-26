@@ -3,40 +3,24 @@ package exercicio20;
 import java.math.BigDecimal;
 
 public class Produto {
-    private int id;
-    private String nome;
-    private double preco;
+    private final int id;
+    private final String nome;
+    private final BigDecimal preco;
     private int quantidadeEmEstoque;
 
-    public Produto(int id, String nome, double preco, int quantidadeEmEstoque) {
+    public Produto(int id, String nome, BigDecimal preco, int quantidadeEmEstoque) {
         this.id = id;
         this.nome = nome;
         this.preco = preco;
         this.quantidadeEmEstoque = quantidadeEmEstoque;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getNomeProduto() {
+    public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public double getPreco() {
+    public BigDecimal getPreco() {
         return preco;
-    }
-
-    public void setPreco(double preco) {
-        this.preco = preco;
     }
 
     public int getQuantidadeEmEstoque() {
@@ -47,9 +31,13 @@ public class Produto {
         this.quantidadeEmEstoque = quantidadeEmEstoque;
     }
 
+    @Override
     public String toString() {
-        return "Produto [idProduto=" + getId() + ", nomeProduto=" + getNomeProduto() + ", precoProduto=" + getPreco()
-                + ", quantidade=" + getQuantidadeEmEstoque() + "]";
+        return "Produto{" +
+                "id =" + id +
+                ", nome ='" + nome + '\'' +
+                ", preco =" + preco +
+                ", quantidadeEmEstoque =" + quantidadeEmEstoque +
+                '}';
     }
 }
-

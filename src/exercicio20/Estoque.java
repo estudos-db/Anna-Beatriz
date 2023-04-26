@@ -1,67 +1,59 @@
 package exercicio20;
 
-import java.util.ArrayList;
+import java.math.BigDecimal;
+import java.util.*;
 
 public class Estoque {
 
-    private static ArrayList<Produto> catalogo = new ArrayList<>();
+    private static final List<Produto> listaDeProdutos = new ArrayList<>();
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public static void inicializaEstoque() {
-        Produto produto1 = new Produto(1, "Arroz", 7.0, 50);
-        Produto produto2 = new Produto(2, "Feijão", 8.0, 40);
-        Produto produto3 = new Produto(3, "Macarrão", 6.0, 30);
+    public static void cadastrarProduto() {
+        int idProduto = listaDeProdutos.size() + 1;
 
-        catalogo.add(produto1);
-        catalogo.add(produto2);
-        catalogo.add(produto3);
+        System.out.println("Qual o nome do produto a ser cadastrado?");
+        String nomeProduto = scanner.next();
+        System.out.println("Qual o preço desse produto?");
+        BigDecimal precoProduto = scanner.nextBigDecimal();
+        System.out.println("Qual a quantidade que você deseja pôr desse produto em estoque?");
+        int quantidadeEmEstoque = scanner.nextInt();
+
+        Produto produto = new Produto(idProduto, nomeProduto, precoProduto, quantidadeEmEstoque);
+        listaDeProdutos.add(produto);
+
+        System.out.println("Produto " + produto.toString() + " cadastrado com sucesso");
     }
 
-    public static Produto encontraProdutoPorNome(String nomeProduto) {
-        for (Produto produto : catalogo) {
-            if (produto.getNomeProduto().equals(nomeProduto)) {
-                return produto;
-            }
-        }
-        return null;
-    }
-    public static boolean cadastraProduto(Produto produto) {
-        if (catalogo.contains(produto)) {
-            return false;
-        } else {
-            catalogo.add(produto);
-            return true;
-        }
-    }
+    public static void darBaixaEmEstoque(String nomeProduto, int quantidadeParaDarBaixa) {
+        Produto produto = encontraProdutoPeloNome(nomeProduto);
 
-    public static void imprimeCatalogoDoEstoque() {
-        System.out.println("CATALOGO DE PRODUTOS:");
-        for (Produto produto : catalogo) {
-            System.out.println(produto.toString());
+        if (produto.getQuantidadeEmEstoque() < quantidadeParaDarBaixa) {
+            throw new NoSuchElementException("Esse produto tem estoque insuficiente.");
+        }
+
+        produto.setQuantidadeEmEstoque(produto.getQuantidadeEmEstoque() - quantidadeParaDarBaixa);
+    }
+    public static void temEstoqueOuNao(String nomeProduto, int quantidadeParaDarBaixa) {
+        Produto produto = encontraProdutoPeloNome(nomeProduto);
+        boolean temEstoque = produto.getQuantidadeEmEstoque() >= quantidadeParaDarBaixa;
+        if (!temEstoque) {
+            System.out.println("Produto " + produto.getNome() + " não possui estoque suficiente.");
         }
     }
-
-    public static void darBaixaEmEstoquePorNome(String nome, int quantidade) {
-        Produto produto = encontraProdutoPorNome(nome);
-        if (produto == null) {
-            System.out.println("Produto não encontrado no estoque.");
-            return;
-        }
-        if (produto.getQuantidadeEmEstoque() < quantidade) {
-            System.out.println("Não há quantidade suficiente do produto.");
-            return;
-        }
-        produto.setQuantidadeEmEstoque(produto.getQuantidadeEmEstoque() - quantidade);
-        System.out.println("Estoque atualizado com sucesso.");
+    public static Produto encontraProdutoPeloNome(String nome) {
+        Optional<Produto> produtoEncontrado = listaDeProdutos.stream()
+                .filter(produto -> produto.getNome().equalsIgnoreCase(nome))
+                .findFirst();
+        return produtoEncontrado.orElse(null);
     }
 
+    public static void addProdutoToListaDeProdutos(Produto produto) {
+        listaDeProdutos.add(produto);
+    }
 
-    public static boolean temEstoqueOuNao(Produto produto, int quantidade) {
-        for (Produto produto2 : catalogo) {
-            if (produto2.equals(produto)) {
-                produto2.getQuantidadeEmEstoque();
-                return false;
-            }
-        }
-     return true;
+    public static void mostrarEstoque() {
+        System.out.println("=====ESTOQUE DO MERCADO====");
+        listaDeProdutos.forEach(System.out::println);
     }
 }
+
