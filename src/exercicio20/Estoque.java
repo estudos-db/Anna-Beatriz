@@ -11,7 +11,7 @@ public class Estoque {
     public static void cadastrarProduto() {
         int idProduto = listaDeProdutos.size() + 1;
 
-        System.out.println("Qual o nome do produto a ser cadastrado?");
+        System.out.println("Qual o nome do produto que você deseja cadastrar?");
         String nomeProduto = scanner.next();
         System.out.println("Qual o preço desse produto?");
         BigDecimal precoProduto = scanner.nextBigDecimal();
@@ -21,23 +21,20 @@ public class Estoque {
         Produto produto = new Produto(idProduto, nomeProduto, precoProduto, quantidadeEmEstoque);
         listaDeProdutos.add(produto);
 
-        System.out.println("Produto " + produto.toString() + " cadastrado com sucesso");
+        System.out.println("Produto " + produto + " cadastrado com sucesso!");
     }
 
-    public static void darBaixaEmEstoque(String nomeProduto, int quantidadeParaDarBaixa) {
-        Produto produto = encontraProdutoPeloNome(nomeProduto);
-
-        if (produto.getQuantidadeEmEstoque() < quantidadeParaDarBaixa) {
-            throw new NoSuchElementException("Esse produto tem estoque insuficiente.");
+    public static void darBaixaEmEstoque(String nomeProduto, int quantidadePraDarBaixa) {
+        for (Produto produto : listaDeProdutos){
+            if (produto.getNome().equals(nomeProduto)){
+                produto.setQuantidadeEmEstoque(produto.getQuantidadeEmEstoque() -quantidadePraDarBaixa);
+            }
         }
-
-        produto.setQuantidadeEmEstoque(produto.getQuantidadeEmEstoque() - quantidadeParaDarBaixa);
     }
     public static void temEstoqueOuNao(String nomeProduto, int quantidadeParaDarBaixa) {
         Produto produto = encontraProdutoPeloNome(nomeProduto);
-        boolean temEstoque = produto.getQuantidadeEmEstoque() >= quantidadeParaDarBaixa;
-        if (!temEstoque) {
-            System.out.println("Produto " + produto.getNome() + " não possui estoque suficiente.");
+        if (produto.getQuantidadeEmEstoque() < quantidadeParaDarBaixa) {
+            System.out.println("O produto " + produto.getNome() + " não possui estoque suficiente. Reveja o estoque do mercado e insira uma quantidade válida.");
         }
     }
     public static Produto encontraProdutoPeloNome(String nome) {
@@ -46,13 +43,21 @@ public class Estoque {
                 .findFirst();
         return produtoEncontrado.orElse(null);
     }
+    public static Produto encontraProdutoDoEstoquePeloId(int id) {
+        for (Produto produto : listaDeProdutos) {
+            if (produto.getId() == id) {
+                return produto;
+            }
+        }
+        return null; // caso não encontre o produto com o id informado
+    }
 
-    public static void addProdutoToListaDeProdutos(Produto produto) {
+    public static void adicionaProdutoAListaDeEstoque(Produto produto) {
         listaDeProdutos.add(produto);
     }
 
     public static void mostrarEstoque() {
-        System.out.println("=====ESTOQUE DO MERCADO====");
+        System.out.println("============ESTOQUE DO MERCADO============");
         listaDeProdutos.forEach(System.out::println);
     }
 }

@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class FecharPedidoComTroco {
-    private final Scanner scanner = new Scanner(System.in);
-    public void realizarPedido() {
+    private static final Scanner scanner = new Scanner(System.in);
+    public static void realizarPedido() {
         Pedido pedido = new Pedido();
         pedido.adicionarItem();
 
@@ -32,7 +32,7 @@ public class FecharPedidoComTroco {
                     }
                     case "N" -> decisao = false;
                     default -> {
-                        System.out.println("Resposta inválida. Por favor, insira S ou N.");
+                        System.out.println("Opção inválida. Por favor, insira S ou N.");
                     }
                 }
             }
@@ -44,9 +44,9 @@ public class FecharPedidoComTroco {
         }
     }
 
-    public void fecharPedido(BigDecimal valorPedido) {
-        System.out.println("O valor do pedido é " + valorPedido);
-        System.out.println("Qual o valor que você tem?");
+    public static void fecharPedido(BigDecimal valorPedido) {
+        System.out.println("O valor do pedido é R$" + valorPedido + ".");
+        System.out.println("Qual o valor que você tem para realizar pagamento?");
         BigDecimal valorPagoEmDinheiro = scanner.nextBigDecimal();
 
         if (valorPagoEmDinheiro.compareTo(valorPedido) < 0) {
@@ -55,7 +55,7 @@ public class FecharPedidoComTroco {
             System.out.println("Quantia exata! Não será necessário troco :)");
         } else {
             BigDecimal troco = valorPagoEmDinheiro.subtract(valorPedido);
-            System.out.println("O troco é " + troco + ".");
+            System.out.println("O seu troco é R$" + troco + ".");
         }
     }
 }

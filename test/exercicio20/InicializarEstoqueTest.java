@@ -1,9 +1,17 @@
 package exercicio20;
 
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import java.math.BigDecimal;
 
-public class InicializarEstoque {
-    public static void estoqueInitializer(){
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+
+public class InicializarEstoqueTest {
+    @Test
+    @DisplayName("Deve verificar se os produtos são corretamente adicionados no inicializador do Estoque.")
+    public void testEstoqueInitializer() {
         Produto produto1 = new Produto(1, "Arroz", BigDecimal.valueOf(6), 500);
         Produto produto2 = new Produto(2, "Feijão", BigDecimal.valueOf(8), 500);
         Produto produto3 = new Produto(3, "Tomate", BigDecimal.valueOf(11.99), 150);
@@ -25,5 +33,17 @@ public class InicializarEstoque {
         Estoque.adicionaProdutoAListaDeEstoque(produto8);
         Estoque.adicionaProdutoAListaDeEstoque(produto9);
         Estoque.adicionaProdutoAListaDeEstoque(produto10);
+
+
+        assertEquals(produto1, Estoque.encontraProdutoDoEstoquePeloId(1));
+        assertEquals(produto2, Estoque.encontraProdutoDoEstoquePeloId(2));
+        assertEquals(produto3, Estoque.encontraProdutoDoEstoquePeloId(3));
+        assertEquals(produto4, Estoque.encontraProdutoDoEstoquePeloId(4));
+        assertEquals(produto5, Estoque.encontraProdutoDoEstoquePeloId(5));
+        assertEquals(produto6, Estoque.encontraProdutoDoEstoquePeloId(6));
+        assertEquals(produto7, Estoque.encontraProdutoDoEstoquePeloId(7));
+        assertEquals(produto8, Estoque.encontraProdutoDoEstoquePeloId(8));
+        assertEquals(produto9, Estoque.encontraProdutoDoEstoquePeloId(9));
+        assertEquals(produto10, Estoque.encontraProdutoDoEstoquePeloId(10));
     }
 }

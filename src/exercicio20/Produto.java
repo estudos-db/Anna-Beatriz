@@ -3,9 +3,9 @@ package exercicio20;
 import java.math.BigDecimal;
 
 public class Produto {
-    private final int id;
-    private final String nome;
-    private final BigDecimal preco;
+    private int id;
+    private String nome;
+    private BigDecimal preco;
     private int quantidadeEmEstoque;
 
     public Produto(int id, String nome, BigDecimal preco, int quantidadeEmEstoque) {
@@ -19,10 +19,22 @@ public class Produto {
         return nome;
     }
 
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
     public BigDecimal getPreco() {
         return preco;
     }
 
+    public void setPreco(BigDecimal preco) {
+        this.preco = preco;
+    }
+
+    public int getId() { return id; }
+    public void setId(int id) {
+        this.id = id;
+    }
     public int getQuantidadeEmEstoque() {
         return quantidadeEmEstoque;
     }
@@ -36,7 +48,7 @@ public class Produto {
         return "Produto{" +
                 "id =" + id +
                 ", nome ='" + nome + '\'' +
-                ", preco =" + preco +
+                ", preço =" + preco +
                 ", quantidadeEmEstoque =" + quantidadeEmEstoque +
                 '}';
     }

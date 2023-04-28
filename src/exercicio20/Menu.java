@@ -4,7 +4,6 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    private final FecharPedidoComTroco pedido = new FecharPedidoComTroco();
 
     private static final int OPCAO_EXIBIR_ESTOQUE = 1;
     private static final int OPCAO_REALIZAR_PEDIDO = 2;
@@ -19,13 +18,15 @@ public class Menu {
                 mostrarMenu();
                 try {
                     resposta = scanner.nextInt();
+                    scanner.nextLine();
                 } catch (InputMismatchException excecao) {
                     scanner.nextLine();
                     resposta = 0;
                 }
+
                 switch (resposta) {
                     case OPCAO_EXIBIR_ESTOQUE -> Estoque.mostrarEstoque();
-                    case OPCAO_REALIZAR_PEDIDO -> pedido.realizarPedido();
+                    case OPCAO_REALIZAR_PEDIDO -> FecharPedidoComTroco.realizarPedido();
                     case OPCAO_CADASTRAR_PRODUTO -> Estoque.cadastrarProduto();
                     case OPCAO_ENCERRAR_PROGRAMA -> {
                         System.out.println("encerrando o programa...");

@@ -23,18 +23,19 @@ public class Pedido {
     public Produto encontrarProduto() {
         Produto produto = null;
         while (produto == null) {
-            System.out.println("Digite o nome do produto que você quer:");
+            System.out.println("Digite o nome do produto que você quer comprar:");
             String nomeProduto = scanner.nextLine();
             if (Estoque.encontraProdutoPeloNome(nomeProduto) == null) {
+                scanner.nextLine();
                 System.out.println("Produto não encontrado no estoque. Por favor, digite um produto válido.");
-            } else {
+            } else  {
                 produto = Estoque.encontraProdutoPeloNome(nomeProduto);
             }
         }
         return produto;
     }
     public int receberQuantidadeProdutoDoTeclado() {
-        System.out.println("Digite a quantidade que você quer deste produto:");
+        System.out.println("Quantos itens desse produto você deseja comprar?");
         return scanner.nextInt();
     }
 
@@ -51,7 +52,11 @@ public class Pedido {
     public void imprimirPedido() {
         System.out.println("Compra finalizada! Status atual do produto:");
         System.out.println(this);
-        System.out.printf("O valor total é de R$ %.2f%n", valorTotal);
+
+    }
+
+    public List<Item> getListaDeItens() {
+        return listaDeItens;
     }
 
     public BigDecimal getValorTotal() {
