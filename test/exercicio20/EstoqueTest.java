@@ -41,7 +41,6 @@ public class EstoqueTest {
     public void testAdicionaProdutoAListaDeEstoque() {
         Produto produto = new Produto(11, "Whey Protein", new BigDecimal(100), 50);
         Estoque.adicionaProdutoAListaDeEstoque(produto);
-        listaDeProdutos.add(produto);
-        assertTrue(listaDeProdutos.contains(produto));
+        assertNotNull(Estoque.encontraProdutoPeloNome(produto.getNome()));
     }
 }
