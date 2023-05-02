@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class Pedido {
-    private final List<Item> listaDeItens = new ArrayList<>();
+    private static final List<Item> listaDeItens = new ArrayList<>();
     private BigDecimal valorTotal = BigDecimal.ZERO;
     private final Scanner scanner = new Scanner(System.in);
 
@@ -55,7 +55,7 @@ public class Pedido {
 
     }
 
-    public List<Item> getListaDeItens() {
+    public static List<Item> getListaDeItens() {
         return listaDeItens;
     }
 

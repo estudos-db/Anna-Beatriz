@@ -56,6 +56,35 @@ public class FecharPedidoComTroco {
         } else {
             BigDecimal troco = valorPagoEmDinheiro.subtract(valorPedido);
             System.out.println("O seu troco é R$" + troco + ".");
+            calcularMenorQuantidadeDeNotas(troco);
+        }
+    }
+    public static void calcularMenorQuantidadeDeNotas(BigDecimal troco) {
+        BigDecimal cemReais = new BigDecimal(100);
+        BigDecimal cinquentaReais = new BigDecimal(50);
+        BigDecimal vinteReais = new BigDecimal(20);
+        BigDecimal dezReais = new BigDecimal(10);
+        BigDecimal cincoReais = new BigDecimal(5);
+        BigDecimal doisReais = new BigDecimal(2);
+        BigDecimal umReal = new BigDecimal(1);
+        BigDecimal cinquentaCentavos = new BigDecimal("0.5");
+        BigDecimal vinteECincoCentavos = new BigDecimal("0.25");
+        BigDecimal dezCentavos = new BigDecimal("0.10");
+        BigDecimal cincoCentavos = new BigDecimal("0.05");
+        BigDecimal umCentavo = new BigDecimal("0.01");
+
+        BigDecimal[] valores = {cemReais, cinquentaReais, vinteReais, dezReais, cincoReais, doisReais, umReal, cinquentaCentavos, vinteECincoCentavos, dezCentavos, cincoCentavos, umCentavo};
+        String[] notasEMoedas = {"Nota(s) de R$100", "Nota(s) de R$50", "Nota(s) de R$20", "Nota(s) de R$10", "Nota(s) de R$5", "Nota(s) de R$2", "Moeda(s) de R$1", "Moeda(s) de R$0.50", "Moeda(s) de R$0.25", "Moeda(s) de R$0.10", "Moeda(s) de R$0.05", "Moeda(s) de R$0.01"};
+
+        System.out.println("Menor quantidade de notas e moedas para o troco de R$" + troco + " é:");
+
+        for (int i = 0; i < valores.length; i++) {
+            BigDecimal[] resultado = troco.divideAndRemainder(valores[i]);
+            int quantidade = resultado[0].intValue();
+            if (quantidade > 0) {
+                System.out.println(quantidade + " " + notasEMoedas[i]);
+            }
+            troco = resultado[1];
         }
     }
 }
