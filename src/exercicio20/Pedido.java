@@ -8,6 +8,9 @@ public class Pedido {
     private BigDecimal valorTotal = BigDecimal.ZERO;
     private final Scanner scanner = new Scanner(System.in);
 
+    public static void calcularMenorQuantidadeDeNotas(BigDecimal subtract) {
+    }
+
     public void adicionarItem() {
         Produto produto = encontrarProduto();
         int quantidadeRequerida = receberQuantidadeProdutoDoTeclado();

@@ -49,14 +49,21 @@ public class FecharPedidoComTroco {
         System.out.println("Qual o valor que você tem para realizar pagamento?");
         BigDecimal valorPagoEmDinheiro = scanner.nextBigDecimal();
 
+        BigDecimal troco = calcularTroco(valorPedido, valorPagoEmDinheiro);
+        if (troco.compareTo(BigDecimal.ZERO) > 0) {
+            calcularMenorQuantidadeDeNotas(troco);
+        }
+    }
+    public static BigDecimal calcularTroco(BigDecimal valorPedido, BigDecimal valorPagoEmDinheiro) {
         if (valorPagoEmDinheiro.compareTo(valorPedido) < 0) {
             throw new RuntimeException("O dinheiro fornecido é insuficiente para finalizar o seu pedido. Adicione mais dinheiro ou altere sua compra.");
         } else if (valorPagoEmDinheiro.compareTo(valorPedido) == 0) {
             System.out.println("Quantia exata! Não será necessário troco :)");
+            return BigDecimal.ZERO;
         } else {
             BigDecimal troco = valorPagoEmDinheiro.subtract(valorPedido);
             System.out.println("O seu troco é R$" + troco + ".");
-            calcularMenorQuantidadeDeNotas(troco);
+            return troco;
         }
     }
     public static void calcularMenorQuantidadeDeNotas(BigDecimal troco) {
