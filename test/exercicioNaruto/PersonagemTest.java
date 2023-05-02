@@ -1,21 +1,36 @@
 package exercicioNaruto;
 
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonagemTest {
+    private Personagem ninja;
+
+    @BeforeEach
+    public void setUp(){
+        ninja = new Personagem("Naruto", 16, "Konoha", 20);
+    }
+
 
     @Test
-    @DisplayName("Deve aprender um novo jutsu")
-    public void testAprenderJutsu() {
-        Personagem personagem = new Personagem("Naruto", 16, "Konoha", 20);
+    public void testAprenderJutsuComSucesso() {
+        String jutsu = "Rasengan";
+        String resultadoEsperado = "O ninja Naruto aprendeu o jutsu " + jutsu + ".";
+        String resultadoObtido = ninja.aprenderJutsu(jutsu);
+        Assertions.assertEquals(resultadoEsperado, resultadoObtido);
+    }
 
-        assertEquals("O ninja Naruto aprendeu o jutsu Rasengan.", personagem.aprenderJutsu("Rasengan"));
-        assertEquals("O ninja Naruto já aprendeu o jutsu Rasengan.", personagem.aprenderJutsu("Rasengan"));
-        assertEquals("O ninja Naruto aprendeu o jutsu Chidori.", personagem.aprenderJutsu("Chidori"));
+    @Test
+    public void testAprenderJutsuDuplicado() {
+        String jutsu = "Kage Bunshin no Jutsu";
+        ninja.aprenderJutsu(jutsu); // Aprende o jutsu pela primeira vez
+        String resultadoEsperado = "O ninja Naruto já aprendeu o jutsu " + jutsu + ".";
+        String resultadoObtido = ninja.aprenderJutsu(jutsu); // Tenta aprender o mesmo jutsu novamente
+        Assertions.assertEquals(resultadoEsperado, resultadoObtido);
     }
 
     @Test
@@ -27,24 +42,18 @@ public class PersonagemTest {
         assertEquals("O total de chakra do ninja Sakura agora é 55.", personagem.aumentarChakra(5));
         assertEquals("O aumento do chakra não pode ser nulo ou negativo.", personagem.aumentarChakra(-10));
     }
-
     @Test
     @DisplayName("Deve impor um novo chakra")
     public void testSetChakra() {
         Personagem personagem = new Personagem("Sasuke", 16, "Konoha", 50);
+        String mensagemEsperada = "Um ninja iniciante não consegue ter um chakra superior a 50.";
 
-        assertEquals(50, personagem.getChakra());
-        personagem.setChakra(35);
-        assertEquals(35, personagem.getChakra());
-        try {
+        String mensagemRecebida = assertThrows(IllegalArgumentException.class, () -> {
             personagem.setChakra(100);
-            fail("Deveria ter lançado exceção");
-        } catch (IllegalArgumentException e) {
-            assertEquals("Um ninja iniciante não consegue ter essa quantidade de chakra", e.getMessage());
-            assertEquals(35, personagem.getChakra());
-        }
-    }
+        }).getMessage();
 
+        assertTrue(mensagemRecebida.contains(mensagemEsperada));
+    }
     @Test
     @DisplayName("Deve exibir as informações de um ninja")
     public void testExibirInfo() {

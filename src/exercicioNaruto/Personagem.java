@@ -16,20 +16,25 @@ public class Personagem {
     }
 
     public String aprenderJutsu(String jutsu) {
-        // verifica se o jutsu ja foi aprendido antes para nao tentar aprender mais de uma vez
         for (String j : this.jutsus) {
             if (j != null && j.equals(jutsu)) {
                 return "O ninja " + this.nome + " já aprendeu o jutsu " + jutsu + ".";
             }
         }
+        int contadorDeJutsus = 0;
         for (int i = 0; i < this.jutsus.length; i++) {
             if (this.jutsus[i] == null) {
                 this.jutsus[i] = jutsu;
                 return "O ninja " + this.nome + " aprendeu o jutsu " + jutsu + ".";
             }
+            contadorDeJutsus++;
         }
-        return "O ninja " + this.nome + " já aprendeu o máximo de jutsus permitido.";
+        if (contadorDeJutsus == 3) {
+            return "O ninja " + this.nome + " já aprendeu o máximo de jutsus permitido.";
+        }
+        return "Erro inesperado ao tentar aprender jutsu.";
     }
+
     public String aumentarChakra(int valor) {
         if(valor <= 0) {
             return "O aumento do chakra não pode ser nulo ou negativo.";
