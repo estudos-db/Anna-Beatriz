@@ -4,13 +4,9 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class Pedido {
-    private static final List<Item> listaDeItens = new ArrayList<>();
-    private BigDecimal valorTotal = BigDecimal.ZERO;
+    private static List<Item> listaDeItens = new ArrayList<>();
+    private static BigDecimal valorTotal = BigDecimal.ZERO;
     private final Scanner scanner = new Scanner(System.in);
-
-    public static void calcularMenorQuantidadeDeNotas(BigDecimal subtract) {
-    }
-
     public void adicionarItem() {
         Produto produto = encontrarProduto();
         int quantidadeRequerida = receberQuantidadeProdutoDoTeclado();
@@ -71,5 +67,9 @@ public class Pedido {
         return "Pedido{" +
                 "itens no pedido=" + listaDeItens +
                 '}';
+    }
+    public static void limparListaDeItens() {
+        listaDeItens.clear();
+        valorTotal = BigDecimal.ZERO;
     }
 }

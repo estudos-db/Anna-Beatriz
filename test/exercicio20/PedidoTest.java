@@ -1,5 +1,6 @@
 package exercicio20;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -16,6 +17,10 @@ import static org.mockito.Mockito.*;
 public class PedidoTest {
     @Mock
     Item itemMock;
+    @BeforeEach
+    public void setUp(){
+        Pedido.limparListaDeItens();
+    }
     @Test
     @DisplayName("Deve adicionar um item")
     public void testAdicionarItem() {
@@ -30,7 +35,7 @@ public class PedidoTest {
         Pedido pedido = new Pedido();
         pedido.adicionarItem();
 
-        List<Item> listaDeItens = pedido.getListaDeItens();
+        List<Item> listaDeItens = Pedido.getListaDeItens();
         assertEquals(1, listaDeItens.size()); // verifica se o item foi adicionado à lista de itens
         Item item = listaDeItens.get(0);
         assertEquals(produto, item.getProduto()); // verifica se o produto do item é o mesmo que foi criado acima
@@ -57,9 +62,8 @@ public class PedidoTest {
     public void testAdicionarItemALista() {
         Pedido pedido = new Pedido();
         pedido.adicionarItemALista(itemMock);
-        List<Item> listaDeItens = pedido.getListaDeItens();
-        assertEquals(1, listaDeItens.size());
-        assertTrue(listaDeItens.contains(itemMock));
+        assertEquals(1, Pedido.getListaDeItens().size());
+        assertTrue(Pedido.getListaDeItens().contains(itemMock));
     }
     @Test
     @DisplayName("Deve calcular o valor total do pedido.")
