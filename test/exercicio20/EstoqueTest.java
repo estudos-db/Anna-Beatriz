@@ -11,11 +11,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class EstoqueTest {
-    private List<Produto> listaDeProdutos;
+
 
     @BeforeEach
     public void setUp() {
-        listaDeProdutos = new ArrayList<>();
         InicializarEstoque.estoqueInitializer();
     }
     @Test

@@ -31,10 +31,13 @@ public class Estoque {
             }
         }
     }
-    public static void temEstoqueOuNao(String nomeProduto, int quantidadeParaDarBaixa) {
+    public static boolean temEstoqueOuNao(String nomeProduto, int quantidadeParaDarBaixa) {
         Produto produto = encontraProdutoPeloNome(nomeProduto);
         if (produto.getQuantidadeEmEstoque() < quantidadeParaDarBaixa) {
             System.out.println("O produto " + produto.getNome() + " não possui estoque suficiente. Reveja o estoque do mercado e insira uma quantidade válida.");
+            return false;
+        } else {
+            return true;
         }
     }
     public static Produto encontraProdutoPeloNome(String nome) {
@@ -43,6 +46,7 @@ public class Estoque {
                 .findFirst();
         return produtoEncontrado.orElse(null);
     }
+
     public static Produto encontraProdutoDoEstoquePeloId(int id) {
         for (Produto produto : listaDeProdutos) {
             if (produto.getId() == id) {
@@ -59,6 +63,9 @@ public class Estoque {
     public static void mostrarEstoque() {
         System.out.println("============ESTOQUE DO MERCADO============");
         listaDeProdutos.forEach(System.out::println);
+    }
+    public static void limparEstoque(){
+        listaDeProdutos.clear();
     }
 }
 

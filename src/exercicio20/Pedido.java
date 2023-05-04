@@ -4,21 +4,24 @@ import java.math.BigDecimal;
 import java.util.*;
 
 public class Pedido {
-    private static List<Item> listaDeItens = new ArrayList<>();
-    private static BigDecimal valorTotal = BigDecimal.ZERO;
+    private List<Item> listaDeItens;
+    private BigDecimal valorTotal = BigDecimal.ZERO;
     private final Scanner scanner = new Scanner(System.in);
-    public void adicionarItem() {
+    public Pedido(){
+        this.listaDeItens = new ArrayList<>();
+    }
+    public void realizarBuscaPorItem() {
         Produto produto = encontrarProduto();
         int quantidadeRequerida = receberQuantidadeProdutoDoTeclado();
-        Estoque.temEstoqueOuNao(produto.getNome(), quantidadeRequerida);
+        if (Estoque.temEstoqueOuNao(produto.getNome(), quantidadeRequerida)){
 
-        Item item = new Item(produto, quantidadeRequerida);
-        Estoque.darBaixaEmEstoque(produto.getNome(), quantidadeRequerida);
+            Item item = new Item(produto, quantidadeRequerida);
+            Estoque.darBaixaEmEstoque(produto.getNome(), quantidadeRequerida);
 
-        adicionarItemALista(item);
-        calcularValorTotal();
+            adicionarItemALista(item);
+            calcularValorTotal();
+        }
     }
-
     public Produto encontrarProduto() {
         Produto produto = null;
         while (produto == null) {
@@ -54,7 +57,7 @@ public class Pedido {
 
     }
 
-    public static List<Item> getListaDeItens() {
+    public  List<Item> getListaDeItens() {
         return listaDeItens;
     }
 
@@ -62,13 +65,14 @@ public class Pedido {
         return valorTotal;
     }
 
+
     @Override
     public String toString() {
         return "Pedido{" +
                 "itens no pedido=" + listaDeItens +
                 '}';
     }
-    public static void limparListaDeItens() {
+    public void limparListaDeItens() {
         listaDeItens.clear();
         valorTotal = BigDecimal.ZERO;
     }

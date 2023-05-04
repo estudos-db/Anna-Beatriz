@@ -1,5 +1,6 @@
 package exercicio20;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -9,6 +10,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class InicializarEstoqueTest {
+
+    @BeforeEach
+    public void setUp(){
+        Estoque.limparEstoque();
+    }
     @Test
     @DisplayName("Deve verificar se os produtos são corretamente adicionados no inicializador do Estoque.")
     public void testEstoqueInitializer() {

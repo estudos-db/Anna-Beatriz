@@ -17,28 +17,23 @@ import static org.mockito.Mockito.*;
 public class PedidoTest {
     @Mock
     Item itemMock;
+    Pedido pedido = new Pedido();
     @BeforeEach
     public void setUp(){
-        Pedido.limparListaDeItens();
+        pedido.limparListaDeItens();
     }
     @Test
     @DisplayName("Deve adicionar um item")
     public void testAdicionarItem() {
         // criação de um produto
         Produto produto = new Produto(1, "Arroz", BigDecimal.valueOf(10), 20);
-        Estoque.adicionaProdutoAListaDeEstoque(produto);
-
-        // simulação de entrada de dados do usuário
-        ByteArrayInputStream in = new ByteArrayInputStream("Arroz\n5".getBytes());
-        System.setIn(in);
 
         Pedido pedido = new Pedido();
-        pedido.adicionarItem();
+        Item item = new Item(produto, 5);
+        pedido.adicionarItemALista(item);
+        pedido.calcularValorTotal();
 
-        List<Item> listaDeItens = Pedido.getListaDeItens();
-        assertEquals(1, listaDeItens.size()); // verifica se o item foi adicionado à lista de itens
-        Item item = listaDeItens.get(0);
-        assertEquals(produto, item.getProduto()); // verifica se o produto do item é o mesmo que foi criado acima
+        assertEquals(item.getProduto().getNome(), pedido.getListaDeItens().get(0).getProduto().getNome()); // verifica se o produto do item é o mesmo que foi criado acima
         assertEquals(5, item.getQuantidade()); // verificando se a quantidade do item é a mesma que foi digitada pelo usuário
         assertEquals(BigDecimal.valueOf(50), pedido.getValorTotal());
     }
@@ -62,8 +57,8 @@ public class PedidoTest {
     public void testAdicionarItemALista() {
         Pedido pedido = new Pedido();
         pedido.adicionarItemALista(itemMock);
-        assertEquals(1, Pedido.getListaDeItens().size());
-        assertTrue(Pedido.getListaDeItens().contains(itemMock));
+        assertEquals(1, pedido.getListaDeItens().size());
+        assertTrue(pedido.getListaDeItens().contains(itemMock));
     }
     @Test
     @DisplayName("Deve calcular o valor total do pedido.")

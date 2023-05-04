@@ -7,7 +7,8 @@ public class FecharPedidoComTroco {
     private static final Scanner scanner = new Scanner(System.in);
     public static void realizarPedido() {
         Pedido pedido = new Pedido();
-        pedido.adicionarItem();
+
+        pedido.realizarBuscaPorItem();
 
         try {
             boolean decisao = true;
