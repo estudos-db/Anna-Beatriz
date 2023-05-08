@@ -6,7 +6,6 @@ public class Personagem {
     private final String aldeia;
     private int chakra;
     private String[] jutsus;
-    private static final int MAX_JUTSUS = 3;
 
     public Personagem(String nome, int idade, String aldeia, int chakra) {
         this.nome = nome;
