@@ -6,6 +6,7 @@ public class Personagem {
     private final String aldeia;
     private int chakra;
     private String[] jutsus;
+    private static final int MAX_JUTSUS = 3;
 
     public Personagem(String nome, int idade, String aldeia, int chakra) {
         this.nome = nome;
@@ -14,27 +15,21 @@ public class Personagem {
         this.setChakra(chakra);
         this.jutsus = new String[1];
     }
-
     public String aprenderJutsu(String jutsu) {
+        // verifica se o jutsu ja foi aprendido antes para nao tentar aprender mais de uma vez
         for (String j : this.jutsus) {
             if (j != null && j.equals(jutsu)) {
                 return "O ninja " + this.nome + " já aprendeu o jutsu " + jutsu + ".";
             }
         }
-        int contadorDeJutsus = 0;
         for (int i = 0; i < this.jutsus.length; i++) {
             if (this.jutsus[i] == null) {
                 this.jutsus[i] = jutsu;
                 return "O ninja " + this.nome + " aprendeu o jutsu " + jutsu + ".";
             }
-            contadorDeJutsus++;
         }
-        if (contadorDeJutsus == 3) {
-            return "O ninja " + this.nome + " já aprendeu o máximo de jutsus permitido.";
-        }
-        return "Erro inesperado ao tentar aprender jutsu.";
+        return "O ninja " + this.nome + " já aprendeu o máximo de jutsus permitido.";
     }
-
     public String aumentarChakra(int valor) {
         if(valor <= 0) {
             return "O aumento do chakra não pode ser nulo ou negativo.";
@@ -80,5 +75,9 @@ public class Personagem {
 
     public String getAldeia() {
         return aldeia;
+    }
+
+    public String[] getJutsus() {
+        return jutsus;
     }
 }

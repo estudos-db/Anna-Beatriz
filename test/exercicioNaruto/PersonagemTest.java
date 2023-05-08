@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonagemTest {
     private Personagem ninja;
-
     @BeforeEach
     public void setUp(){
         ninja = new Personagem("Naruto", 16, "Konoha", 20);
@@ -63,5 +62,13 @@ public class PersonagemTest {
         String info = "Personagem:\nNome: Kakashi\nIdade: 27\nAldeia: Konoha\nChakra total: 40\nLista de jutsus: [Chidori]";
 
         assertEquals(info, personagem.exibirInfo());
+    }
+    @Test
+    @DisplayName("Deve retornar a mensagem informando que o ninja já atingiu o limite de jutsus (3).")
+    public void testAprenderMaisDe3Jutsus() {
+        ninja.aprenderJutsu("Rasengan");
+        ninja.aprenderJutsu("Kage Bunshin no Jutsu");
+        ninja.aprenderJutsu("Bola de fogo");
+        assertEquals("O ninja Naruto já aprendeu o máximo de jutsus permitido.", ninja.aprenderJutsu("Chidori"));
     }
 }
