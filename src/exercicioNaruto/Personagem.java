@@ -12,7 +12,7 @@ public class Personagem {
         this.idade = idade;
         this.aldeia = aldeia;
         this.setChakra(chakra);
-        this.jutsus = new String[1];
+        this.jutsus = new String[3];
     }
     public String aprenderJutsu(String jutsu) {
         // verifica se o jutsu ja foi aprendido antes para nao tentar aprender mais de uma vez
@@ -53,7 +53,7 @@ public class Personagem {
         for(int i = 0; i < this.jutsus.length; i++) {
             if(this.jutsus[i] != null) {
                 jutsusString.append(this.jutsus[i]);
-                if(i != this.jutsus.length - 1) {
+                if((i != this.jutsus.length - 1 )&&(this.jutsus[i + 1]!= null)) {
                     jutsusString.append(", ");
                 }
             }
@@ -75,7 +75,6 @@ public class Personagem {
     public String getAldeia() {
         return aldeia;
     }
-
     public String[] getJutsus() {
         return jutsus;
     }

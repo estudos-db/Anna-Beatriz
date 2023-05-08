@@ -5,6 +5,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class PersonagemTest {
@@ -22,7 +24,6 @@ public class PersonagemTest {
         String resultadoObtido = ninja.aprenderJutsu(jutsu);
         Assertions.assertEquals(resultadoEsperado, resultadoObtido);
     }
-
     @Test
     public void testAprenderJutsuDuplicado() {
         String jutsu = "Kage Bunshin no Jutsu";
@@ -31,7 +32,6 @@ public class PersonagemTest {
         String resultadoObtido = ninja.aprenderJutsu(jutsu); // Tenta aprender o mesmo jutsu novamente
         Assertions.assertEquals(resultadoEsperado, resultadoObtido);
     }
-
     @Test
     @DisplayName("Deve aumentar chakra")
     public void testAumentarChakra() {
@@ -70,5 +70,12 @@ public class PersonagemTest {
         ninja.aprenderJutsu("Kage Bunshin no Jutsu");
         ninja.aprenderJutsu("Bola de fogo");
         assertEquals("O ninja Naruto já aprendeu o máximo de jutsus permitido.", ninja.aprenderJutsu("Chidori"));
+    }
+    @Test
+    public void testAprenderMaisUmJutsu(){
+        ninja.aprenderJutsu("Rasengan");
+        ninja.aprenderJutsu("Chidori");
+        String[] jutsus = {"Rasengan", "Chidori", null};
+        Assertions.assertEquals(Arrays.toString(jutsus), Arrays.toString(ninja.getJutsus()));
     }
 }
