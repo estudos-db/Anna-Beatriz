@@ -66,7 +66,7 @@ public class LocatarioService {
     public void deletarPorNome(String nome) {
         Optional<Locatario> locatarioOptional = locatarioRepository.findByNome(nome);
         if(locatarioOptional.isEmpty())
-            throw new LocatarioNaoEncontradoPorNomeException("Essee locatário não foi encontrado.");
+            throw new LocatarioNaoEncontradoPorNomeException("Locatário não encontrado para o nome: " + nome);
 
         boolean encontrado = false;
         List<Aluguel> aluguelLista = aluguelRepository.findAll();
@@ -76,7 +76,7 @@ public class LocatarioService {
                 break;
             }
         if(encontrado)
-            throw new LocatarioComAluguelException("Não é possível excluir um locatario que tem um aluguel ativo.");
+            throw new LocatarioComAluguelException("Não é possível excluir um locatário que tem um aluguel ativo.");
 
         locatarioRepository.delete(locatarioOptional.get());
     }

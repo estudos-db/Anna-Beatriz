@@ -7,6 +7,8 @@ import com.example.livraria.model.Autor;
 import com.example.livraria.repository.AutorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -28,9 +30,9 @@ public class AutorService {
         }
         return autorMapper.toDtoList(autorLista);
     }
-    public AutorDto adicionar(AutorDto autorDto) {
+    public List<AutorDto> adicionar(AutorDto autorDto) {
         Autor autor = autorMapper.toEntity(autorDto);
         Autor novoAutor = autorRepository.save(autor);
-        return autorMapper.toDto(novoAutor);
+        return Collections.singletonList(autorMapper.toDto(novoAutor));
     }
 }

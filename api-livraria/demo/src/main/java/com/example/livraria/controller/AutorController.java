@@ -33,7 +33,7 @@ public class AutorController {
     @PostMapping
     public ResponseEntity<AutorDto> adicionar(@RequestBody AutorDto autorDto) {
         try {
-            AutorDto autorAdicionado = autorService.adicionar(autorDto);
+            AutorDto autorAdicionado = (AutorDto) autorService.adicionar(autorDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(autorAdicionado);
         } catch(IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();

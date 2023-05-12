@@ -4,12 +4,14 @@ import com.example.livraria.model.Livro;
 import com.example.livraria.model.SexoEnum;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class AutorDto {
     @NotBlank(message = "O 'nome' é um campo obrigatório.")
     private String nome;
