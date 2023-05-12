@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -33,14 +31,7 @@ public class LivroService {
     public LivroService(LivroRepository livroRepository, LivroMapper livroMapper) {
         this.livroRepository = livroRepository;
         this.livroMapper = livroMapper;
-    }
-    public void setDataDePublicacao(LocalDate dataDePublicacao, Livro livro) {
-        if(dataDePublicacao == null)
-            throw new IllegalArgumentException("Data de publicação inválida");
-
-        livro.setDataDePublicacao(dataDePublicacao);
-    }
-    public List<LivroDto> listarTodos() {
+    }public List<LivroDto> listarTodos() {
         List<Livro> livroLista = livroRepository.findAll();
         List<LivroDto> livroDtoLista = new ArrayList<>();
         for(Livro livro : livroLista) {

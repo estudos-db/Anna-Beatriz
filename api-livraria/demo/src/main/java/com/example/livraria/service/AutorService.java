@@ -1,6 +1,7 @@
 package com.example.livraria.service;
 
 import com.example.livraria.dto.AutorDto;
+import com.example.livraria.exceptions.AutorNaoEncontradoPorNomeException;
 import com.example.livraria.mapper.AutorMapper;
 import com.example.livraria.model.Autor;
 import com.example.livraria.repository.AutorRepository;
@@ -22,6 +23,9 @@ public class AutorService {
 
     public List<AutorDto> buscarPorNome(String nome) {
         List<Autor> autorLista = autorRepository.findByNome(nome);
+        if (autorLista.isEmpty()) {
+            throw new AutorNaoEncontradoPorNomeException(nome);
+        }
         return autorMapper.toDtoList(autorLista);
     }
     public AutorDto adicionar(AutorDto autorDto) {

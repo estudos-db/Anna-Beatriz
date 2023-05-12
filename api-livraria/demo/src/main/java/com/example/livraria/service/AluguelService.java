@@ -3,8 +3,6 @@ package com.example.livraria.service;
 import com.example.livraria.dto.AluguelDto;
 import com.example.livraria.mapper.AluguelMapper;
 import com.example.livraria.model.Aluguel;
-import com.example.livraria.model.Livro;
-import com.example.livraria.model.Locatario;
 import com.example.livraria.repository.AluguelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,9 @@
 package com.example.livraria.controller;
 
 import com.example.livraria.dto.LocatarioDto;
+import com.example.livraria.exceptions.LocatarioComAluguelException;
 import com.example.livraria.exceptions.LocatarioDuplicadoException;
+import com.example.livraria.exceptions.LocatarioNaoEncontradoPorNomeException;
 import com.example.livraria.service.LocatarioService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,6 +46,17 @@ public class LocatarioController {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(locatariosEncontrados);
+        }
+    }
+    @DeleteMapping("/{nome}")
+    public ResponseEntity<Void> deletarPorNome(@PathVariable String nome) {
+        try {
+            locatarioService.deletarPorNome(nome);
+            return ResponseEntity.noContent().build();
+        } catch (LocatarioComAluguelException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        } catch (LocatarioNaoEncontradoPorNomeException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
     }
 }

@@ -1,16 +1,21 @@
 package com.example.livraria.service;
 
 import com.example.livraria.dto.LocatarioDto;
-import com.example.livraria.exceptions.LivroNaoEncontradoPorNomeException;
+import com.example.livraria.exceptions.LocatarioComAluguelException;
 import com.example.livraria.exceptions.LocatarioDuplicadoException;
+import com.example.livraria.exceptions.LocatarioNaoEncontradoPorNomeException;
 import com.example.livraria.mapper.LocatarioMapper;
+import com.example.livraria.model.Aluguel;
 import com.example.livraria.model.Locatario;
+import com.example.livraria.repository.AluguelRepository;
 import com.example.livraria.repository.LocatarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class LocatarioService {
@@ -18,6 +23,8 @@ public class LocatarioService {
     private LocatarioRepository locatarioRepository;
     @Autowired
     private LocatarioMapper locatarioMapper;
+    @Autowired
+    private AluguelRepository aluguelRepository;
     public List<LocatarioDto> listarTodos() {
         List<Locatario> locatarioLista = locatarioRepository.findAll();
         List<LocatarioDto> locatarioDtoLista = new ArrayList<>();
@@ -36,7 +43,7 @@ public class LocatarioService {
         }
         Locatario locatario = locatarioMapper.toEntity(locatarioDto);
         locatarioMapper.validatorNome(locatario.getNome(), locatario);
-        locatarioMapper.validatorCpf(locatario.getCpf(), locatario);
+        locatarioMapper.validatorCpf(Integer.valueOf(locatario.getCpf()), locatario);
         locatarioMapper.validatorDataDeNascimento(locatario.getDataDeNascimento(), locatario);
         locatarioMapper.validatorEmail(locatario.getEmail(), locatario);
         locatarioMapper.validatorTelefone(locatarioDto);
@@ -52,8 +59,25 @@ public class LocatarioService {
             }
         }
         if (locatariosDtoEncontrados.isEmpty()) {
-            throw new LivroNaoEncontradoPorNomeException(nome);
+            throw new LocatarioNaoEncontradoPorNomeException(nome);
         }
         return locatariosDtoEncontrados;
+    }
+    public void deletarPorNome(String nome) {
+        Optional<Locatario> locatarioOptional = locatarioRepository.findByNome(nome);
+        if(locatarioOptional.isEmpty())
+            throw new LocatarioNaoEncontradoPorNomeException("Essee locatário não foi encontrado.");
+
+        boolean encontrado = false;
+        List<Aluguel> aluguelLista = aluguelRepository.findAll();
+        for(Aluguel aluguel : aluguelLista)
+            if(Objects.equals(aluguel.getLocatario(), locatarioOptional.get())) {
+                encontrado = true;
+                break;
+            }
+        if(encontrado)
+            throw new LocatarioComAluguelException("Não é possível excluir um locatario que tem um aluguel ativo.");
+
+        locatarioRepository.delete(locatarioOptional.get());
     }
 }

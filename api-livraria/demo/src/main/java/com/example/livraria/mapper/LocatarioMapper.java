@@ -70,6 +70,6 @@ public class LocatarioMapper {
             throw new IllegalArgumentException("Este CPF é inválido. Certifique-se de adicionar 11 dígitos.");
         }
 
-        locatario.setCpf(cpf);
+        locatario.setCpf(String.valueOf(cpf));
     }
 }
