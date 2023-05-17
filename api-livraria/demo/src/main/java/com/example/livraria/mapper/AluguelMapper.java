@@ -13,11 +13,13 @@ public class AluguelMapper {
     }
     public AluguelDto toDto(Aluguel aluguel) {
         validateLivros(aluguel);
+
         return modelMapper.map(aluguel, AluguelDto.class);
     }
     public Aluguel toEntity(AluguelDto aluguelDto) {
         Aluguel aluguel = modelMapper.map(aluguelDto, Aluguel.class);
         validateLocatario(aluguel);
+
         return aluguel;
     }
     public static void validateLocatario(Aluguel aluguel) {

@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,7 @@ public class AutorDto {
     private String nome;
     private SexoEnum sexo;
     @NotNull
-    private Integer anoDeNascimento;
+    private LocalDate dataDeNascimento;
     @NotNull
     private Integer cpf;
     private List<Livro> livros = new ArrayList<>();

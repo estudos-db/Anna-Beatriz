@@ -9,7 +9,6 @@ import com.example.livraria.model.Livro;
 import com.example.livraria.model.Locatario;
 import com.example.livraria.repository.LivroRepository;
 import com.example.livraria.repository.LocatarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -21,27 +20,31 @@ import java.util.stream.Collectors;
 
 @Service
 public class LivroService {
-    @Autowired
     private LivroRepository livroRepository;
-    @Autowired
     private LivroMapper livroMapper;
-    @Autowired
     private LocatarioRepository locatarioRepository;
-    @Autowired
-    public LivroService(LivroRepository livroRepository, LivroMapper livroMapper) {
+
+    public LivroService(LivroRepository livroRepository, LivroMapper livroMapper, LocatarioRepository locatarioRepository) {
         this.livroRepository = livroRepository;
         this.livroMapper = livroMapper;
-    }public List<LivroDto> listarTodos() {
+        this.locatarioRepository = locatarioRepository;
+    }
+
+    public List<LivroDto> listarTodos() {
         List<Livro> livroLista = livroRepository.findAll();
         List<LivroDto> livroDtoLista = new ArrayList<>();
+
         for(Livro livro : livroLista) {
             LivroDto livroDto = livroMapper.toDto(livro);
             livroDtoLista.add(livroDto);
         }
+
         return livroDtoLista;
     }
+
     public List<LivroDto> buscarAutorPorNome(String nome) {
         Optional<Livro> livroOptional = livroRepository.findByNome(nome);
+
         if (livroOptional.isPresent()) {
             Livro livro = livroOptional.get();
             return Collections.singletonList(livroMapper.toDto(livro));
@@ -49,37 +52,50 @@ public class LivroService {
             return Collections.emptyList();
         }
     }
+
     public List<LivroDto> buscarDisponiveis() {
         List<Livro> livroLista = livroRepository.findByAlugado(false);
+
         return livroLista.stream()
                 .map(livroMapper::toDto)
                 .collect(Collectors.toList());
     }
+
     public ResponseEntity<LivroDto> adicionar(LivroDto livroDto) {
         Livro livro = livroMapper.toEntity(livroDto);
         Livro novoLivro = livroRepository.save(livro);
         LivroDto novoLivroDto = livroMapper.toDto(novoLivro);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(novoLivroDto);
     }
+
     public List<LivroDto> buscarLivroPeloNomeDoLocatario(String nome) {
         List<LivroDto> livrosLocatario = new ArrayList<>();
-        List<Aluguel> alugueis = locatarioRepository.findByNome(nome).map(Locatario::getAlugueis).orElse(Collections.emptyList());
+        List<Aluguel> alugueis = locatarioRepository.findByNome(nome)
+                .map(Locatario::getAlugueis)
+                .orElse(Collections.emptyList());
+
         for (Aluguel aluguel : alugueis) {
             for (Livro livro : aluguel.getLivros()) {
                 LivroDto livroDto = livroMapper.toDto(livro);
                 livrosLocatario.add(livroDto);
             }
         }
+
         return livrosLocatario;
     }
+
     public void deletarPorNome(String nome) {
         Optional<Livro> livroOptional = livroRepository.findByNome(nome);
+
         if (livroOptional.isEmpty()) {
             throw new LivroNaoEncontradoPorNomeException("Livro não encontrado. Insira um nome válido.");
         }
+
         if (livroOptional.get().isAlugado()) {
             throw new LivroAlugadoException("Livros alugados não podem ser deletados.");
         }
+
         livroRepository.deleteByNome(nome);
     }
 }

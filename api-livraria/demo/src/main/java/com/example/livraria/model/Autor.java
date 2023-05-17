@@ -18,9 +18,8 @@ public class Autor {
     private String nome;
     private LocalDate dataDeNascimento;
     @Column(unique = true)
-    private String cpf;
-    private String email;
+    private Integer cpf;
     private SexoEnum sexo;
-    @OneToMany(mappedBy = "autor")
+    @ManyToMany(mappedBy = "autores")
     private List<Livro> livros;
 }

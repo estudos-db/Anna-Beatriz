@@ -26,6 +26,7 @@ public class AutorServiceTest {
 
     @InjectMocks
     private AutorService autorService;
+
     @Mock
     private AutorMapper autorMapper;
 
@@ -45,10 +46,13 @@ public class AutorServiceTest {
         String nome = "João";
         Autor autor = AutorMock.criarAutor();
         AutorDto autorDto = AutorMock.criarAutorDto();
+
         List<Autor> autores = List.of(autor);
         List<AutorDto> autoresDto = List.of(autorDto);
+
         when(autorRepository.findByNome(Mockito.anyString())).thenReturn(autores);
         when(autorMapper.toDtoList(autores)).thenReturn(autoresDto);
+
         List<AutorDto> autoresEncontrados = autorService.buscarPorNome(nome);
 
         assertEquals(autoresDto.size(), autoresEncontrados.size());

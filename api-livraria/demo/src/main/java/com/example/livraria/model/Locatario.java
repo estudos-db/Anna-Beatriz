@@ -8,19 +8,20 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @Table(uniqueConstraints = {@UniqueConstraint(columnNames = {"cpf", "email"})})
+@Entity
 public class Locatario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private SexoEnum sexo;
     private String telefone;
     private String email;
     private LocalDate dataDeNascimento;
-    private String cpf;
+    private Integer cpf;
     @OneToMany
     private List<Aluguel> alugueis = new ArrayList<>();
     public List<Aluguel> getAlugueis() {

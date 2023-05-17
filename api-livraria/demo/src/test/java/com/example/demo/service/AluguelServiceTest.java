@@ -11,7 +11,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnitRunner;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,10 +25,11 @@ public class AluguelServiceTest {
     @Mock
     private AluguelRepository aluguelRepository;
 
-    @InjectMocks
-    private AluguelService aluguelService;
     @Mock
     private AluguelMapper aluguelMapper;
+
+    @InjectMocks
+    private AluguelService aluguelService;
 
     @Test
     @DisplayName("Deve retornar uma lista vazia quando não houver nenhum aluguel")
@@ -40,6 +40,7 @@ public class AluguelServiceTest {
 
         assertTrue(aluguelDtoLista.isEmpty());
     }
+
     @Test
     @DisplayName("Deve retornar uma lista não vazia quando houver ao menos um aluguel")
     public void testListarTodosDois() {
@@ -51,6 +52,7 @@ public class AluguelServiceTest {
         assertFalse(aluguelDtoLista.isEmpty());
         assertEquals(1, aluguelDtoLista.size());
     }
+
     @Test
     @DisplayName("Deve salvar um aluguel no banco")
     public void testAdicionarNoBanco() {
@@ -61,6 +63,7 @@ public class AluguelServiceTest {
         Mockito.when(aluguelRepository.save(aluguel)).thenReturn(aluguel);
 
         ResponseEntity<AluguelDto> response = aluguelService.adicionarNoBanco(aluguelDto);
+
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
         assertEquals(aluguelDto, response.getBody());
         Mockito.verify(aluguelRepository, Mockito.times(1)).save(aluguel);

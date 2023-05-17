@@ -25,8 +25,8 @@ public class AutorMapper {
     }
     public Autor toEntity(AutorDto autorDto) {
         validateNome(autorDto.getNome());
-        validateAnoDeNascimento(autorDto.getAnoDeNascimento());
-        validateCpf(String.valueOf(autorDto.getCpf()));
+        validateAnoDeNascimento(autorDto.getDataDeNascimento());
+        validateCpf(autorDto.getCpf().toString());
 
         return modelMapper.map(autorDto, Autor.class);
     }
@@ -35,13 +35,13 @@ public class AutorMapper {
             throw new IllegalArgumentException("Um autor com esse nome não existe e é inválido.");
         }
     }
-    private void validateAnoDeNascimento(Integer anoDeNascimento) {
-        if (anoDeNascimento == null || anoDeNascimento > LocalDate.now().getYear()) {
+    private void validateAnoDeNascimento(LocalDate anoDeNascimento) {
+        if (anoDeNascimento == null || anoDeNascimento.isAfter(LocalDate.now())) {
             throw new IllegalArgumentException("Um autor com esse ano de nascimento não existe e é inválido.");
         }
     }
     private void validateCpf(String cpf) {
-        if (cpf == null || cpf.length() != 11) {
+        if (cpf == null) {
             throw new IllegalArgumentException("Um autor com esse CPF não existe e é inválido.");
         }
     }

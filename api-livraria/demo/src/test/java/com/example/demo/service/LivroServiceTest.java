@@ -37,19 +37,20 @@ public class LivroServiceTest {
         livroRepository = Mockito.mock(LivroRepository.class);
         livroMapper = Mockito.mock(LivroMapper.class);
         LocatarioRepository locatarioRepository = Mockito.mock(LocatarioRepository.class);
-        livroService = new LivroService(livroRepository, livroMapper);
+        livroService = new LivroService(livroRepository, livroMapper, locatarioRepository);
     }
 
     @Test
     @DisplayName("Deve retornar uma lista de livros")
     public void testListarTodos() {
-        // given
         Livro livro = criarLivro();
         List<Livro> listaLivros = Collections.singletonList(livro);
         LivroDto livroDto = new LivroDto();
         List<LivroDto> listaLivrosDto = Collections.singletonList(livroDto);
         when(livroRepository.findAll()).thenReturn(listaLivros);
         when(livroMapper.toDto(livro)).thenReturn(livroDto);
+
+
         List<LivroDto> resultado = livroService.listarTodos();
 
         assertEquals(listaLivrosDto, resultado);
@@ -65,7 +66,10 @@ public class LivroServiceTest {
         List<LivroDto> listaLivrosDto = Collections.singletonList(livroDto);
         when(livroRepository.findByNome(nome)).thenReturn(Optional.of(livro));
         when(livroMapper.toDto(livro)).thenReturn(livroDto);
+
+
         List<LivroDto> resultado = livroService.buscarAutorPorNome(nome);
+
 
         assertEquals(listaLivrosDto, resultado);
     }
@@ -82,6 +86,7 @@ public class LivroServiceTest {
         });
         assertEquals("Livros alugados não podem ser deletados.", exception.getMessage());
     }
+
     @Test
     @DisplayName("Deve lançar excessão quando um livro não for encontrado,")
     public void testDeletarPorNomeCenarioDois() {
@@ -99,6 +104,7 @@ public class LivroServiceTest {
         String nome = "Livro disponível";
         Livro livro = LivroMock.criarLivro();
         livro.setAlugado(false);
+
         when(livroRepository.findByNome(nome)).thenReturn(Optional.of(livro));
         livroService.deletarPorNome(nome);
 

@@ -1,23 +1,18 @@
 package com.example.demo.service;
 
 import com.example.demo.mock.AluguelMock;
-import com.example.demo.mock.LocatarioMock;
-import com.example.livraria.dto.LocatarioDto;
 import com.example.livraria.exceptions.LocatarioComAluguelException;
 import com.example.livraria.exceptions.LocatarioNaoEncontradoPorNomeException;
-import com.example.livraria.mapper.LocatarioMapper;
 import com.example.livraria.model.Aluguel;
 import com.example.livraria.model.Locatario;
 import com.example.livraria.repository.AluguelRepository;
 import com.example.livraria.repository.LocatarioRepository;
 import com.example.livraria.service.LocatarioService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.*;
@@ -41,9 +36,11 @@ public class LocatarioServiceTest {
     @DisplayName("Deve lançar exceção quando locatário não for encontrado pelo nome.")
     public void testBuscarPorNomeCenarioUm() {
         String nome = "João da Silva";
+
         when(locatarioRepository.findAll()).thenReturn(new ArrayList<>());
         LocatarioNaoEncontradoPorNomeException thrownException = assertThrows(LocatarioNaoEncontradoPorNomeException.class,
                 () -> locatarioService.buscarPorNome(nome));
+
         assertEquals("Locatário não encontrado para o nome: " + nome, thrownException.getMessage());
     }
 
@@ -54,8 +51,10 @@ public class LocatarioServiceTest {
         Locatario locatario = criarLocatario();
         Aluguel aluguel = AluguelMock.criarAluguel();
         aluguel.setLocatario(locatario);
+
         when(locatarioRepository.findByNome(nome)).thenReturn(Optional.of(locatario));
         when(aluguelRepository.findAll()).thenReturn(List.of(aluguel));
+
         assertThrows(LocatarioComAluguelException.class, () -> {
             locatarioService.deletarPorNome(nome);
         });
@@ -66,9 +65,11 @@ public class LocatarioServiceTest {
     public void testDeletarPorNomeCenarioTres() {
         String nome = "João";
         Locatario locatario = criarLocatario();
+
         when(locatarioRepository.findByNome(nome)).thenReturn(Optional.of(locatario));
         when(aluguelRepository.findAll()).thenReturn(Collections.emptyList());
         locatarioService.deletarPorNome(nome);
+
         verify(locatarioRepository).delete(locatario);
     }
 }

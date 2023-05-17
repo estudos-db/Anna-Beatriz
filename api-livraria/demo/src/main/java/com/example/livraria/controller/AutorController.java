@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/autores")
 public class AutorController {
-
     private final AutorService autorService;
 
     public AutorController(AutorService autorService) {
@@ -24,6 +23,7 @@ public class AutorController {
         List<AutorDto> autores = autorService.listarTodos();
         return autores.isEmpty() ? ResponseEntity.noContent().build() : ResponseEntity.ok(autores);
     }
+
     @GetMapping("/nome/{nome}")
     public ResponseEntity<List<AutorDto>> buscarPorNome(@RequestParam String nome) {
         List<AutorDto> autores = autorService.buscarPorNome(nome);
@@ -35,9 +35,9 @@ public class AutorController {
         try {
             AutorDto autorAdicionado = (AutorDto) autorService.adicionar(autorDto);
             return ResponseEntity.status(HttpStatus.CREATED).body(autorAdicionado);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().build();
-        } catch(AutorDuplicadoException e) {
+        } catch (AutorDuplicadoException e) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }

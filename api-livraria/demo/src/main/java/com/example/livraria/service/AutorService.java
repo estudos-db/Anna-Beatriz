@@ -5,18 +5,18 @@ import com.example.livraria.exceptions.AutorNaoEncontradoPorNomeException;
 import com.example.livraria.mapper.AutorMapper;
 import com.example.livraria.model.Autor;
 import com.example.livraria.repository.AutorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 import java.util.List;
 
 @Service
 public class AutorService {
-    @Autowired
     private AutorRepository autorRepository;
-    @Autowired
     private AutorMapper autorMapper;
+
+    public AutorService(AutorRepository autorRepository, AutorMapper autorMapper) {
+        this.autorRepository = autorRepository;
+        this.autorMapper = autorMapper;
+    }
 
     public List<AutorDto> listarTodos() {
         List<Autor> autorLista = autorRepository.findAll();
@@ -30,9 +30,10 @@ public class AutorService {
         }
         return autorMapper.toDtoList(autorLista);
     }
-    public List<AutorDto> adicionar(AutorDto autorDto) {
+
+    public AutorDto adicionar(AutorDto autorDto) {
         Autor autor = autorMapper.toEntity(autorDto);
         Autor novoAutor = autorRepository.save(autor);
-        return Collections.singletonList(autorMapper.toDto(novoAutor));
+        return autorMapper.toDto(novoAutor);
     }
 }

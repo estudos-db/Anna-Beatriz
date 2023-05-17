@@ -11,7 +11,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/alugueis")
 public class AluguelController {
-
     private final AluguelService aluguelService;
 
     public AluguelController(AluguelService aluguelService) {
@@ -21,18 +20,19 @@ public class AluguelController {
     @GetMapping
     public ResponseEntity<List<AluguelDto>> listarTodos() {
         List<AluguelDto> aluguelDtoLista = aluguelService.listarTodos();
-        if(aluguelDtoLista.isEmpty()) {
+        if (aluguelDtoLista.isEmpty()) {
             return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(aluguelDtoLista);
         }
     }
+
     @PostMapping
     public ResponseEntity<AluguelDto> adicionar(@RequestBody AluguelDto aluguelDto) {
         try {
             AluguelDto aluguelDtoAdd = aluguelService.adicionarNoBanco(aluguelDto).getBody();
             return ResponseEntity.ok(aluguelDtoAdd);
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }

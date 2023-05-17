@@ -5,12 +5,14 @@ import com.example.livraria.model.Livro;
 import com.example.livraria.model.Locatario;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 public class AluguelDto {
     @NotNull
     private Locatario locatario;
