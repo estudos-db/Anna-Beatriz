@@ -21,9 +21,8 @@ $ git clone https://github.com/estudos-db/Anna-Beatriz.git
 Quando clonar o repositório do projeto, abra o diretório da API - Livraria 
 numa janela separada na IDE.
 
-## Executando o projeto 
+## Executando o projeto ⚡
 
-Agora, dê load no arquivo "build.gradle".
+#### Agora, dê load no arquivo "build.gradle".
 
-![image](Captura de tela 2023-05-16 172216.png)
 
