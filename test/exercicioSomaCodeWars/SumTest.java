@@ -1,8 +1,8 @@
-package exerciciosCodeWars;
+package exercicioSomaCodeWars;
 
 import org.junit.jupiter.api.Test;
 
-import static exerciciosCodeWars.Sum.somarInteiros;
+import static exercicioSomaCodeWars.Sum.somarInteiros;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SumTest {
