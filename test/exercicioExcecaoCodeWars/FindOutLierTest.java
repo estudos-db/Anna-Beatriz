@@ -16,8 +16,8 @@ public class FindOutLierTest {
         //verificando se lida bem com o valor maximo de um inteiro
         int[] exampleTest3 = {Integer.MAX_VALUE, 0, 1};
 
-        assertEquals(3, encontrarExcecao(exampleTest1));
-        assertEquals(206847684, encontrarExcecao(exampleTest2));
-        assertEquals(0, encontrarExcecao(exampleTest3));
+        assertEquals(3, FindOutLier.encontrarExcecao(exampleTest1));
+        assertEquals(206847684, FindOutLier.encontrarExcecao(exampleTest2));
+        assertEquals(0, FindOutLier.encontrarExcecao(exampleTest3));
     }
 }
