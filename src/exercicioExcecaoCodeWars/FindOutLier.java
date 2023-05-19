@@ -1,4 +1,4 @@
-package exerciciosCodeWars;
+package exercicioExcecaoCodeWars;
 /*Você recebe um array (que terá um comprimento de pelo menos 3, mas pode ser muito grande)
 contendo números inteiros. O array é composto inteiramente por números ímpares ou inteiramente por números pares,
 exceto por um único número N. Escreva um método que receba o array como argumento e retorne esse número

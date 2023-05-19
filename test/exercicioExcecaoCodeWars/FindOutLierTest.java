@@ -1,9 +1,9 @@
-package exerciciosCodeWars;
+package exercicioExcecaoCodeWars;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static exerciciosCodeWars.FindOutLier.encontrarExcecao;
+import static exercicioExcecaoCodeWars.FindOutLier.encontrarExcecao;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FindOutLierTest {
